@@ -1,6 +1,6 @@
 while True:
     r = int(input('1 para criar um novo documento e 2 p sair '))
-    if r == 2 :
+    if r == 2:
         break
     if r == 1:
         dia = int(input('que dia é hoje? '))
