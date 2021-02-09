@@ -30,7 +30,9 @@ while True:
             print(linhas)
         arquivotarefas.close()
     if escolha == 2:
-        open("TAREFASTODOAPP.txt", "r")
+        arquivotarefas = open("TAREFASTODOAPP.txt", "r")
+        for linhas in arquivotarefas:
+            print(linhas)
 
     if escolha == 4:
         arquivotarefas = open("TAREFASTODOAPP.txt", "r")
