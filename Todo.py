@@ -1,6 +1,7 @@
 from time import sleep as wait
 from datetime import datetime as data
 
+Counter = 0
 DateNow = data.now()
 TextDateNow = DateNow.strftime('%d/%m/%Y às %H:%M')
 print('Seja bem vindo ao ToDo App!')
@@ -16,14 +17,20 @@ while True:
     elif Choice == 1:
         while True:
             TaskName = input('Título da tarefa: ')
-            TaskFiles = open(f"tarefa_{TaskName}.txt", 'w')
-            TaskFiles.write('Qual o dia da sua tarefa: ')
-            TaskFiles.write((input('Data da tarefa : ')))
-            TaskFiles.write('\nQual a hora da tarefa: ')
-            TaskFiles.write(input('Que horas você quer fazer ? '))
-            TaskFiles.write('\nO que você vai fazer: ')
-            TaskFiles.write(input('Digite aqui alguns detalhes:  '))
-            TaskFiles.close()
+            with open(f"{TaskName}.txt", 'w') as TaskFiles:
+                TaskFiles.write('Qual o dia da sua tarefa: ')
+                TaskFiles.write((input('Data da tarefa : ')))
+                TaskFiles.write('\nQual a hora da tarefa: ')
+                TaskFiles.write(input('Que horas você quer fazer ? '))
+                TaskFiles.write('\nO que você vai fazer: ')
+                TaskFiles.write(input('Digite aqui alguns detalhes:  '))
+
+                with open("ListaTarefas.txt", "w") as AllTaskFiles:
+                    while True:
+                        Counter += 1
+                        AllTaskFiles.write(f'[{Counter}]- {TaskName}\n')
+                        TaskName = Counter
+                        break
             Choice1_1 = int(input('Voltar ao menu ou cadastrar outra tarefa?: [1]-Menu\n[2]-Tarefa\nR: '))
             if Choice1_1 == 1:
                 break
@@ -34,9 +41,15 @@ while True:
                 break
 
     elif Choice == 2:
-        TaskFiles = open("TAREFASTODOAPP.txt", "r")
-
-        TaskFiles.close()
+        with open("ListaTarefas.txt", "r") as AllTaskFiles:
+            for Lines in AllTaskFiles:
+                print(Lines)
+        WhichFile = int(input('Qual tarefa você quer ver? (Digite o número correspondente) \nR:'))
+        while True:
+            if WhichFile == Counter:
+                with open(f'{Counter}.txt', "r") as OpenTask:
+                    for Lines in OpenTask:
+                        print(Lines)
 
     elif Choice == 3:
         TaskFiles = open("TAREFASTODOAPP.txt", "r")
